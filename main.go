@@ -10,10 +10,10 @@ import (
 	"syscall"
 
 	"github.com/braintree/manners"
-	"github.com/calvn/hello-world-aws/handlers"
+	"github.com/calvn/proto/handlers"
 )
 
-const version = "1.0.0"
+const version = "1.0.1"
 
 func main() {
 	var httpAddr = flag.String("http", "0.0.0.0:8000", "HTTP service address")
