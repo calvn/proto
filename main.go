@@ -13,13 +13,13 @@ import (
 	"github.com/calvn/proto/handlers"
 )
 
-const version = "1.0.1"
+const version = "1.0.2"
 
 func main() {
 	var httpAddr = flag.String("http", "0.0.0.0:8000", "HTTP service address")
 	flag.Parse()
 
-	log.Println("Starting server")
+	log.Println("Starting server...")
 
 	errChan := make(chan error)
 

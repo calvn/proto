@@ -9,21 +9,17 @@ import (
 	"github.com/aws/aws-sdk-go/service/sts"
 )
 
-type IdentityResponse struct {
-	Identity *sts.GetCallerIdentityOutput `json:"identity"`
-}
-
 func IdentityHandler(w http.ResponseWriter, r *http.Request) {
 	sess, err := session.NewSession()
 	if err != nil {
 		log.Println("failed to create session,", err)
+		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
 
 	svc := sts.New(sess)
 
-	var params *sts.GetCallerIdentityInput
-	resp, err := svc.GetCallerIdentity(params)
+	resp, err := svc.GetCallerIdentity(nil)
 	if err != nil {
 		log.Println(err.Error())
 		w.WriteHeader(http.StatusInternalServerError)
@@ -31,9 +27,6 @@ func IdentityHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response := IdentityResponse{
-		Identity: resp,
-	}
-	json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(resp)
 	return
 }
